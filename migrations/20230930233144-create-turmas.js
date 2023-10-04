@@ -26,6 +26,10 @@ module.exports = {
       nivel_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        references: {
+          model: "Niveis",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
