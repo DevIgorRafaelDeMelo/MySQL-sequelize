@@ -13,19 +13,49 @@ module.exports = (sequelize, DataTypes) => {
       });
       Elementos.hasMany(models.Matriculas, {
         foreignKey: "estudante_id",
+        scope: { status: "cancelado" },
+        as: "AulasMatriculadas",
       });
     }
   }
   Elementos.init(
     {
-      nome: DataTypes.STRING,
+      nome: {
+        type: DataTypes.STRING,
+        validate: {
+          funcaovalidadora: function (dado) {
+            if (dado.length < 3) {
+              throw new Error("O CAMPO DEVE TER MAIS Q 3 CARACTERES");
+            }
+          },
+        },
+      },
       ativo: DataTypes.BOOLEAN,
-      email: DataTypes.STRING,
+      email: {
+        type: DataTypes.STRING,
+        validate: {
+          isEmail: {
+            args: true,
+            msg: "dado do tipo e-mails",
+          },
+        },
+      },
       role: DataTypes.STRING,
     },
     {
+      paranoid: true,
       sequelize,
       modelName: "Elementos",
+      defaultScope: {
+        where: {
+          ativo: true,
+        },
+      },
+      scopes: {
+        ativo: {
+          where: { ativo: false },
+        },
+      },
     }
   );
   return Elementos;

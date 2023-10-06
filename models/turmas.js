@@ -23,10 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       data_inicio: DataTypes.DATEONLY,
     },
-    {
-      sequelize,
-      modelName: "Turmas",
-    }
+    { paranoid: true, sequelize, modelName: "Turmas" }
   );
   return Turmas;
 };

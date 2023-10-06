@@ -10,6 +10,15 @@ class PessoasControllers {
     }
   }
 
+  static async pegaTodasPessoasScopes(req, res) {
+    try {
+      const todasPessoas = await database.Elementos.scope("ativo").findAll();
+      return res.status(200).json(todasPessoas);
+    } catch (error) {
+      return res.status(500);
+    }
+  }
+
   static async umaPessoa(req, res) {
     const { id } = req.params;
     try {
@@ -126,6 +135,29 @@ class PessoasControllers {
     try {
       await database.Matriculas.destroy({ where: { id: Number(idd) } });
       return res.status(200).json({ mensagem: `id ${id} deletado` });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  static async restauraElemento(req, res) {
+    const { id } = req.params;
+    try {
+      await database.Elementos.restore({ where: { id: Number(id) } });
+      return res.status(200).json({ message: `id ${id} restaurado` });
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+
+  static async pegaMatricula(req, res) {
+    const { id } = req.params;
+    try {
+      const matriculas = await database.Elementos.findOne({
+        where: { id: Number(id) },
+      });
+      const matriculasI = await matriculas.getAulasMatriculadas();
+      return res.status(200).json(matriculasI);
     } catch (error) {
       return res.status(500).json(error.message);
     }

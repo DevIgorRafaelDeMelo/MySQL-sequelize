@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       descr_nivel: DataTypes.STRING,
     },
     {
+      paranoid: true,
       sequelize,
       modelName: "Niveis",
     }

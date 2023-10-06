@@ -6,6 +6,6 @@ router
   .get("/niveis", NivelController.pegaTodosOsNiveis)
   .get("/niveis/:id", NivelController.pegaUmNivel)
   .post("/niveis", NivelController.criaNivel)
-  .put("/niveis/:id", NivelController.atualizaNivel)
-  .delete("/niveis/:id", NivelController.apagaNivel);
+  .put("/niveis/:id", NivelController.atualizaNivel);
+
 module.exports = router;
