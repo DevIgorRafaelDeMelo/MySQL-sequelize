@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       scopes: {
         ativo: {
-          where: { ativo: false },
+          where: { ativo: true },
         },
       },
     }

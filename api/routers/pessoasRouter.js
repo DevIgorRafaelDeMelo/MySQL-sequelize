@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const PessoasControllers = require("../controllers/PassoasControllers");
-
 const router = Router();
 
 router.get("/pessoas", PessoasControllers.pegaTodasPessoas);
@@ -15,6 +14,14 @@ router.get(
   PessoasControllers.umaPessoaMatricula
 );
 router.get("/pessoas/:id/matricula", PessoasControllers.pegaTodasMatriculas);
+router.get(
+  "/pessoas/matricula/:id/confirmadas",
+  PessoasControllers.pegaMatriculaPorTurma
+);
+router.get(
+  "/pessoas/matricula/confirmadas",
+  PessoasControllers.pegaMatriculaConfirmadasPorTurma
+);
 router.post("/pessoas/:id/matricula", PessoasControllers.criaMatricula);
 router.put("/pessoas/:id/matricula/:idd", PessoasControllers.atualizaMatricula);
 router.delete("/pessoas/:id/matricula/:idd", PessoasControllers.apagaMatricula);
